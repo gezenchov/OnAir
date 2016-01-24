@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "AFNetworkActivityLogger.h"
 
 @interface AppDelegate ()
 
@@ -21,9 +20,6 @@
     
     // Hide status bar
     [UIApplication sharedApplication].statusBarHidden = YES;
-    
-    // start logging communication
-    [[AFNetworkActivityLogger sharedLogger] startLogging];
     
     return YES;
 }
