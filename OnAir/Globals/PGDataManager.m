@@ -7,7 +7,7 @@
 //
 
 #import "PGDataManager.h"
-#import "PGDownloadManager.h"
+#import "PGServiceManager.h"
 #import "PGOnAirMapper.h"
 
 @implementation PGDataManager
@@ -26,7 +26,7 @@
 - (void)getOnAirDataWithSuccess:(void (^)(NSArray *playoutItems))success
                           failure:(void (^)(NSError *error))failure
 {
-    [[PGDownloadManager sharedManager] downloadOnAirDataWithSuccess:^(id responseObject){
+    [[PGServiceManager sharedManager] downloadOnAirDataWithSuccess:^(id responseObject){
         [self mapPlayoutDataItems:responseObject succes:success failure:failure];
     }
                                                                failure:^(NSError *error){

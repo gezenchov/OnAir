@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 com.gezenchov. All rights reserved.
 //
 
-#import "PGDownloadManager.h"
+#import "PGServiceManager.h"
 #import "PGServiceClient.h"
 
-@implementation PGDownloadManager
+@implementation PGServiceManager
 
 + (instancetype)sharedManager {
-    static PGDownloadManager *_sharedClient = nil;
+    static PGServiceManager *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[PGDownloadManager alloc] init];
+        _sharedClient = [[PGServiceManager alloc] init];
         
     });
     

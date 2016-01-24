@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PGDownloadManager : NSObject
+@interface PGServiceManager : NSObject
 
 + (instancetype)sharedManager;
 

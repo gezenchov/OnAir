@@ -7,6 +7,8 @@
 //
 
 #import "PGRootViewController.h"
+#import "PGApplicationManager.h"
+#import "UIView+Animations.h"
 #import "PGPageModelController.h"
 #import "PGPageViewController.h"
 #import "PGPageContainerViewController.h"
@@ -24,6 +26,7 @@
 @property (nonatomic, strong) PGEpgItem *epgItem;
 
 @property (nonatomic, weak) IBOutlet UIView *onAirView;
+@property (nonatomic, weak) IBOutlet UILabel *onAirLabel;
 @property (nonatomic, weak) IBOutlet PGImageView *backgroundImage;
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *durationLabel;
@@ -38,7 +41,7 @@
 @implementation PGRootViewController
 
 static CGFloat const kInflateFromRatio = 1.1f;
-static CGFloat const kInflateToRatio = 1.4f;
+static CGFloat const kInflateToRatio = 1.7f;
 static CGFloat const kPageControllerTopMargin = 150.0f;
 
 @synthesize modelController = _modelController;
@@ -116,6 +119,9 @@ static CGFloat const kPageControllerTopMargin = 150.0f;
 {
     // Position view above page controller header
     self.onAirView.frame = CGRectMake(0, 0, self.view.frame.size.width, kPageControllerTopMargin);
+    
+    // Start pulsation of 'ON AIR' label
+    [self.onAirLabel startPulsing];
 }
 
 - (void)setupGetDataView
@@ -292,11 +298,10 @@ static CGFloat const kPageControllerTopMargin = 150.0f;
 - (IBAction)buttonPressed:(id)sender
 {
     self.button.userInteractionEnabled = NO;
+    [self.onAirLabel stopPulsing];
     [self startLoadingPulsation];
-    
-    [self.button setTitle:NSLocalizedString(@"LOADING", @"Button title") forState:UIControlStateNormal];
-    
-    [[PGDataManager sharedManager] getOnAirDataWithSuccess:^(NSArray *items){
+
+    [[PGApplicationManager shared].dataManager getOnAirDataWithSuccess:^(NSArray *items){
         PGOnAirData *onAir = [items lastObject];
         self.epgItem = [onAir.egpDataItems lastObject];
         self.modelController.dataItems = onAir.playoutDataItems;
